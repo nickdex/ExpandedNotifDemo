@@ -1,6 +1,7 @@
 package me.whichapp.expandednotifdemo;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -45,7 +46,6 @@ public class NotificationService extends Service
                 Constants.ACTION.STOPFOREGROUND_ACTION)) {
             Log.i(LOG_TAG, "Received Stop Foreground Intent");
             Toast.makeText(this, "Service Stoped", Toast.LENGTH_SHORT).show();
-            stopForeground(true);
             stopSelf();
         }
         return START_STICKY;
@@ -134,10 +134,13 @@ public class NotificationService extends Service
         status = new Notification.Builder(this).build();
         status.contentView = views;
         status.bigContentView = bigViews;
-        status.flags = Notification.FLAG_ONGOING_EVENT;
         status.icon = R.mipmap.ic_launcher;
         status.contentIntent = pendingIntent;
-        startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, status);
+        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+
+        // Build Notification with Notification Manager
+        notificationmanager.notify(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, status);
     }
 }
 
