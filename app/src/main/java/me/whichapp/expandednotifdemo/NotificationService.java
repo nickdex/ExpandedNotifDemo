@@ -27,27 +27,32 @@ public class NotificationService extends Service
         }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent.getAction().equals(Constants.ACTION.STARTFOREGROUND_ACTION)) {
-            showNotification();
-            Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+        if(intent != null && intent.getAction() != null)
+        {
+            if (intent.getAction().equals(Constants.ACTION.STARTFOREGROUND_ACTION)) {
+                showNotification();
+                Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
 
-        } else if (intent.getAction().equals(Constants.ACTION.PREV_ACTION)) {
-            Toast.makeText(this, "Clicked Previous", Toast.LENGTH_SHORT).show();
-            Log.i(LOG_TAG, "Clicked Previous");
-        } else if (intent.getAction().equals(Constants.ACTION.PLAY_ACTION)) {
-            showNotification();
-            Toast.makeText(this, "Clicked Play", Toast.LENGTH_SHORT).show();
-            Log.i(LOG_TAG, "Clicked Play");
-        } else if (intent.getAction().equals(Constants.ACTION.NEXT_ACTION)) {
-            Toast.makeText(this, "Clicked Next", Toast.LENGTH_SHORT).show();
-            Log.i(LOG_TAG, "Clicked Next");
-        } else if (intent.getAction().equals(
-                Constants.ACTION.STOPFOREGROUND_ACTION)) {
-            Log.i(LOG_TAG, "Received Stop Foreground Intent");
-            Toast.makeText(this, "Service Stoped", Toast.LENGTH_SHORT).show();
-            stopSelf();
+            } else if (intent.getAction().equals(Constants.ACTION.PREV_ACTION)) {
+                Toast.makeText(this, "Clicked Previous", Toast.LENGTH_SHORT).show();
+                Log.i(LOG_TAG, "Clicked Previous");
+            } else if (intent.getAction().equals(Constants.ACTION.PLAY_ACTION)) {
+                showNotification();
+                Toast.makeText(this, "Clicked Play", Toast.LENGTH_SHORT).show();
+                Log.i(LOG_TAG, "Clicked Play");
+            } else if (intent.getAction().equals(Constants.ACTION.NEXT_ACTION)) {
+                Toast.makeText(this, "Clicked Next", Toast.LENGTH_SHORT).show();
+                Log.i(LOG_TAG, "Clicked Next");
+            } else if (intent.getAction().equals(
+                    Constants.ACTION.STOPFOREGROUND_ACTION)) {
+                Log.i(LOG_TAG, "Received Stop Foreground Intent");
+                Toast.makeText(this, "Service Stoped", Toast.LENGTH_SHORT).show();
+                stopSelf();
+            }
         }
+
         return START_STICKY;
     }
 
